@@ -1,0 +1,50 @@
+TDB_File
+========
+
+This module provides bindings to Andrew Tridgell's "Trivial Database"
+library (libtdb). TDB is a simple database similar to gdbm, but allows
+multiple simultaneous readers and writers.
+
+TDB_File provides a simple tie() interface, similar to DB_File and
+friends; and an object-oriented interface, which provides access to
+all of the functions in the tdb library.
+
+Currently the logging function is set globally, so the last logging
+function to be set will be used for all TDB_File objects.  Other than
+this limitation, all functionality provided by the TDB C interface
+should be available.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires the TDB library, available from:
+
+  http://tdb.sourceforge.net/
+
+TDB_File was developed using libtdb 1.0.6.
+
+COPYRIGHT AND LICENCE
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+Copyright (C) 2002  Angus Lees <gus@inodes.org>

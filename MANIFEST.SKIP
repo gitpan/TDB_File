@@ -1,0 +1,8 @@
+^blib
+\.bak$
+~$
+^Makefile(\.old)?$
+^TDB_File-
+^TDB_File-.*\.tar\.gz$
+^testdb(init|break)$
+^test\.tdb$

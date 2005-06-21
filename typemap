@@ -38,7 +38,4 @@ T_TDB_DATA
 T_PTROBJ_CLASS
         sv_setref_pv($arg, class, (void*)$var);
 T_TDB_MONE_ON_FAIL
-	if ($var == -1) {
-		$arg = &PL_sv_no;
-	} else
-		$arg = &PL_sv_yes;
+	$arg = ($var == -1) ? &PL_sv_no : &PL_sv_yes;

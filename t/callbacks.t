@@ -7,7 +7,7 @@
 use Test;
 use Fcntl;
 
-BEGIN { plan tests => 17, todo => [14, 15, 17] };
+BEGIN { plan tests => 18 };
 
 use TDB_File;
 
@@ -53,6 +53,7 @@ my $tdb2 = TDB_File->open("test2.tdb");
 ok($tdb2);
 $tdb2->logging_function(sub { $called2++ });
 
+# reopen after unlink should trigger a logged error
 ok(unlink(qw(test1.tdb test2.tdb)), 2);
 
 ok(!$tdb1->reopen);
@@ -61,3 +62,20 @@ ok($called2, 0);
 
 ok(!$tdb2->reopen);
 ok($called2, 1);
+
+
+# hash callback
+
+$tdb = TDB_File->open("dummy.tdb", TDB_INTERNAL, O_RDWR, 0666, 0, undef,
+		      sub { ord substr $_[0], 0, 1 })
+  or die "Couldn't open test3.tdb: $!";
+
+ok($tdb);
+$tdb->store(ant => 'val1');
+$tdb->store(apple => 'val2');
+$tdb->store(banana => 'val3');
+
+# FIXME: this shows the right thing (two records with the one hash
+# value (97) and one record with another (98)), just have to find a
+# way to machine test that..
+#$tdb->dump_all;

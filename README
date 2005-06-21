@@ -9,10 +9,10 @@ TDB_File provides a simple tie() interface, similar to DB_File and
 friends; and an object-oriented interface, which provides access to
 all of the functions in the tdb library.
 
-Currently the logging function is set globally, so the last logging
-function to be set will be used for all TDB_File objects.  Other than
-this limitation, all functionality provided by the TDB C interface
-should be available.
+Currently the hash function is set globally, so the last hash function
+to be set will be used for all TDB_File objects that specify hash
+functions.  Other than this limitation (in the TDB API), all
+functionality provided by the TDB C interface should be available.
 
 INSTALLATION
 
@@ -29,7 +29,9 @@ This module requires the TDB library, available from:
 
   http://tdb.sourceforge.net/
 
-TDB_File was developed using libtdb 1.0.6.
+TDB_File was developed using libtdb 1.0.6, although the tdb_open_ex()
+signature has changed at least once while libtdb still claimed to be
+1.0.6.
 
 COPYRIGHT AND LICENCE
 
@@ -47,4 +49,4 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-Copyright (C) 2002  Angus Lees <gus@inodes.org>
+Copyright (C) 2002, 2005  Angus Lees <gus@inodes.org>

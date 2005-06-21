@@ -2,7 +2,14 @@ Revision history for Perl extension TDB_File.
 
 0.01  Tue Mar 26 17:02:46 2002
 	- original version; created by h2xs 1.21 with options
-		-x -n TDB_File -p tdb_ /home/gus/projects/tdb-perl/tdb-perl/tdb.h
+	   -x -n TDB_File -p tdb_ /home/gus/projects/tdb-perl/tdb-perl/tdb.h
 
 0.50  Sat Jun 29 15:29:20 2002
 	- initial release to CPAN
+
+0.90  Tue Jun 21 09:02:15 2005
+	- Support a log callback for each TDB_File object
+	- Pass logging function to tdb_open_ex()
+	- Remove tdb_lockkeys/tdb_unlockkeys functions, since they
+	  seem to have gone from TDB
+	- Use ExtUtils::Constant to build constant() function

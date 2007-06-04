@@ -44,7 +44,7 @@ Exporter::export_tags(qw(flags error));
 
 $EXPORT_TAGS{all} = \@EXPORT_OK;
 
-our $VERSION = '0.95';
+our $VERSION = '0.96';
 
 sub AUTOLOAD {
   # This AUTOLOAD is used to 'autoload' constants from the constant()

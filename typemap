@@ -30,9 +30,10 @@ T_TDB_MONE_ON_FAIL
 #############################################################################
 OUTPUT
 T_TDB_DATA
-	if ($var.dptr)
+	if ($var.dptr) {
 		sv_setpvn((SV*)$arg, $var.dptr, $var.dsize);
-	else
+		free($var.dptr);
+	} else
 		$arg = &PL_sv_undef;
 # note use of "class" string:
 T_PTROBJ_CLASS

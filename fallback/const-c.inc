@@ -41,12 +41,8 @@ constant_10 (pTHX_ const char *name, IV *iv_return) {
   case 'O':
     if (memEQ(name, "TDB_ERR_I", 9)) {
     /*                        O     */
-#ifdef TDB_ERR_IO
       *iv_return = TDB_ERR_IO;
       return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
     }
     break;
   case 'P':
@@ -96,12 +92,8 @@ constant_11 (pTHX_ const char *name, IV *iv_return) {
   case 'C':
     if (memEQ(name, "TDB_SUCCESS", 11)) {
     /*                     ^           */
-#ifdef TDB_SUCCESS
       *iv_return = TDB_SUCCESS;
       return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
     }
     break;
   case 'F':
@@ -140,12 +132,8 @@ constant_11 (pTHX_ const char *name, IV *iv_return) {
   case 'R':
     if (memEQ(name, "TDB_ERR_OOM", 11)) {
     /*                     ^           */
-#ifdef TDB_ERR_OOM
       *iv_return = TDB_ERR_OOM;
       return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
     }
     break;
   }
@@ -170,10 +158,17 @@ use ExtUtils::Constant qw (constant_types C_constant XS_constant);
 
 my $types = {map {($_, 1)} qw(IV)};
 my @names = (qw(TDB_BIGENDIAN TDB_CLEAR_IF_FIRST TDB_CONVERT TDB_DEFAULT
-	       TDB_ERR_CORRUPT TDB_ERR_EXISTS TDB_ERR_IO TDB_ERR_LOCK
-	       TDB_ERR_LOCK_TIMEOUT TDB_ERR_NOEXIST TDB_ERR_NOLOCK TDB_ERR_OOM
 	       TDB_INSERT TDB_INTERNAL TDB_MODIFY TDB_NOLOCK TDB_NOMMAP
-	       TDB_REPLACE TDB_SUCCESS));
+	       TDB_REPLACE),
+            {name=>"TDB_ERR_CORRUPT", type=>"IV", macro=>"1"},
+            {name=>"TDB_ERR_EXISTS", type=>"IV", macro=>"1"},
+            {name=>"TDB_ERR_IO", type=>"IV", macro=>"1"},
+            {name=>"TDB_ERR_LOCK", type=>"IV", macro=>"1"},
+            {name=>"TDB_ERR_LOCK_TIMEOUT", type=>"IV", macro=>"TDB_HAS_ERR_LOCK_TIMEOUT"},
+            {name=>"TDB_ERR_NOEXIST", type=>"IV", macro=>"1"},
+            {name=>"TDB_ERR_NOLOCK", type=>"IV", macro=>"1"},
+            {name=>"TDB_ERR_OOM", type=>"IV", macro=>"1"},
+            {name=>"TDB_SUCCESS", type=>"IV", macro=>"1"});
 
 print constant_types(); # macro defs
 foreach (C_constant ("TDB_File", 'constant', 'IV', $types, undef, 3, @names) ) {
@@ -199,12 +194,8 @@ __END__
     case 'K':
       if (memEQ(name, "TDB_ERR_LOC", 11)) {
       /*                          K      */
-#ifdef TDB_ERR_LOCK
         *iv_return = TDB_ERR_LOCK;
         return PERL_constant_ISIV;
-#else
-        return PERL_constant_NOTDEF;
-#endif
       }
       break;
     case 'L':
@@ -238,23 +229,15 @@ __END__
     case 'I':
       if (memEQ(name, "TDB_ERR_EXISTS", 14)) {
       /*                         ^          */
-#ifdef TDB_ERR_EXISTS
         *iv_return = TDB_ERR_EXISTS;
         return PERL_constant_ISIV;
-#else
-        return PERL_constant_NOTDEF;
-#endif
       }
       break;
     case 'L':
       if (memEQ(name, "TDB_ERR_NOLOCK", 14)) {
       /*                         ^          */
-#ifdef TDB_ERR_NOLOCK
         *iv_return = TDB_ERR_NOLOCK;
         return PERL_constant_ISIV;
-#else
-        return PERL_constant_NOTDEF;
-#endif
       }
       break;
     }
@@ -267,23 +250,15 @@ __END__
     case 'P':
       if (memEQ(name, "TDB_ERR_CORRUPT", 15)) {
       /*                            ^        */
-#ifdef TDB_ERR_CORRUPT
         *iv_return = TDB_ERR_CORRUPT;
         return PERL_constant_ISIV;
-#else
-        return PERL_constant_NOTDEF;
-#endif
       }
       break;
     case 'S':
       if (memEQ(name, "TDB_ERR_NOEXIST", 15)) {
       /*                            ^        */
-#ifdef TDB_ERR_NOEXIST
         *iv_return = TDB_ERR_NOEXIST;
         return PERL_constant_ISIV;
-#else
-        return PERL_constant_NOTDEF;
-#endif
       }
       break;
     }
@@ -300,7 +275,7 @@ __END__
     break;
   case 20:
     if (memEQ(name, "TDB_ERR_LOCK_TIMEOUT", 20)) {
-#ifdef TDB_ERR_LOCK_TIMEOUT
+#ifdef TDB_HAS_ERR_LOCK_TIMEOUT
       *iv_return = TDB_ERR_LOCK_TIMEOUT;
       return PERL_constant_ISIV;
 #else

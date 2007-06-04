@@ -44,7 +44,7 @@ Exporter::export_tags(qw(flags error));
 
 $EXPORT_TAGS{all} = \@EXPORT_OK;
 
-our $VERSION = '0.90';
+our $VERSION = '0.95';
 
 sub AUTOLOAD {
   # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -125,7 +125,8 @@ LOG_FN is a coderef or the name of a function to be called when this
 TDB object encounters errors. See L</$tdb-E<gt>logging_function(SUB)>.
 
 HASH_FN is a coderef or the name of a function to be called to
-generate key hashes.
+generate key hashes.  This argument is unsupported in some TDB
+libraries and will generate a Perl warning when this arg is specified.
 B<NB:> See L</BUGS> for a limitation in the current implementation.
 
 Each argument except FILE has a reasonable default and may be omitted,

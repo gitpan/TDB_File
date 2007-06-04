@@ -13,3 +13,15 @@ Revision history for Perl extension TDB_File.
 	- Remove tdb_lockkeys/tdb_unlockkeys functions, since they
 	  seem to have gone from TDB
 	- Use ExtUtils::Constant to build constant() function
+
+0.95  Tue Jul 19 09:20:27 2005
+	- Makefile.PL now attempts to determine various tdb
+	  differences.
+	- tdb_open_ex with a hash_fn arg now generates a warning if
+	  TDB_File was compiled against a tdb version that lacks this
+	  argument.
+	- Change tdb_printfreelist to return void, since the
+	  sourceforge 1.0.6 version has this, and we don't care about
+	  the return value in other versions.
+	- Protect TDB_ERR_LOCK_TIMEOUT, since that constant doesn't
+	  exist in some versions.

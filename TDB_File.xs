@@ -14,6 +14,10 @@
 # define stop() #error "gdb break op unknown on this arch"
 #endif
 
+#ifndef TDB_HAS_HASH_FUNC
+typedef u32 (*tdb_hash_func)(TDB_DATA *key);
+#endif
+
 static int
 delete_key_cb(TDB_CONTEXT *tdb, TDB_DATA key, TDB_DATA data, void *state)
 {
@@ -298,10 +302,16 @@ tdb_open(class, name, tdb_flags = TDB_DEFAULT, open_flags = O_RDWR|O_CREAT, mode
 		}
 		else
 			log_func = NULL;
-
+#ifdef TDB_HAS_HASH_FUNC
 		RETVAL = tdb_open_ex(name, hash_size, tdb_flags,
 				     open_flags, mode,
 				     log_func, hash_func);
+#else
+		if (hash_func)
+			warn("Your libtdb version doesn't support specifying the hash function - ignored.");
+		RETVAL = tdb_open_ex(name, hash_size, tdb_flags,
+				     open_flags, mode, log_func);
+#endif
 
 		/* undo open-time log hack */
 		log_func_sv = NULL;
@@ -319,7 +329,7 @@ tdb_open(class, name, tdb_flags = TDB_DEFAULT, open_flags = O_RDWR|O_CREAT, mode
     OUTPUT:
 	RETVAL
 
-int
+void
 tdb_printfreelist(tdb)
 	TDB_CONTEXT *	tdb
 

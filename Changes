@@ -29,5 +29,5 @@ Revision history for Perl extension TDB_File.
 0.96  Tue Jun  5 00:14:02 2007
 	- Fix memory leak in TDB_DATA typemap.  Thanks nigelw.
 
-0.96.1 Mon Mar 17 21:36:52 2008
+0.96a Mon Mar 17 21:36:52 2008
 	- Remove bogus (and unused) stop() macro on freebsd.

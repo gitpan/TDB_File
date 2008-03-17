@@ -10,8 +10,6 @@
 /* for debugging.. */
 #if defined (__GNUC__) && defined (__i386__)
 # define stop() __asm__("int    $0x03\n")
-#else
-# define stop() #error "gdb break op unknown on this arch"
 #endif
 
 #ifndef TDB_HAS_HASH_FUNC
